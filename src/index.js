@@ -1,31 +1,59 @@
 import React from "react";
 
+import './BackgroundVideo.css'
+
 class BackgroundVideo extends React.Component {
   constructor(props) {
     super(props);
     
     this.state = {
-      lazyLoaded: null,
-    }
+      loadVideo: false,
+    };
+
+    this.renderPoster = this.renderPoster.bind(this);
+    this.renderVideo = this.renderVideo.bind(this);
   }
 
   componentDidMount() {
-    //load video buffer
+    this.setState({
+      loadVideo: true
+    });
+  }
 
-    //fade out image
+  renderPoster() {
+    const { posterSrc, posterAlt } = this.props;
+    const { loadVideo } = this.state;
 
-    //fade in video
+    return (
+      <img 
+        className={`backgroundVideo__poster ${loadVideo && 'backgroundVideo__poster--loaded'}`} 
+        src={posterSrc} 
+        alt={posterSrc} />
+    )
+  }
+
+  renderVideo() {
+    const { videoSrc } = this.props;
+    const { loadVideo } = this.state;
+
+    return (
+      <video className={`backgroundVideo__video ${loadVideo && 'backgroundVideo__video--loaded'}`} 
+        loop 
+        muted 
+        autoPlay={loadVideo}>
+        { videoSrc.map((video, i) => <source key={i} src={video.src} type={video.mediaType} />)}
+      </video>
+    )
   }
 
   render() {
     const { posterSrc, posterAlt, videoSrc } = this.props;
+    const { loadVideo } = this.state;
 
     return (
       <React.Fragment>
-        <img src={posterSrc} alt={posterSrc} />
-        <video loop autoPlay muted>
-          { videoSrc.map(video => <source src={video.src} type={video.mediaType} />)}
-        </video>
+        { this.renderPoster() }
+        { loadVideo && this.renderVideo() }
       </React.Fragment>
     )
   }

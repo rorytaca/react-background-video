@@ -1,6 +1,6 @@
 {
   "name": "@rorytaca/react-background-video",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "build/index.js",
   "repository": {
@@ -29,6 +29,8 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.7.0",
+    "css-loader": "^2.1.1",
+    "style-loader": "^0.23.1",
     "webpack-cli": "^3.3.1"
   }
 }
